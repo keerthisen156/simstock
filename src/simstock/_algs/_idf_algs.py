@@ -58,7 +58,8 @@ def _mixed_use(idf: IDF, zone_use_dict: dict) -> None:
                 'ZONECONTROL:THERMOSTAT']:
         objects = idf.idfobjects[obj]
         for item in objects:
-            if item.Zone_or_ZoneList_Name.lower() not in use_list:
+            if hasattr(item, 'Zone_or_ZoneList_Name') and item.Zone_or_ZoneList_Name.lower() not in use_list:
+            #if item.Zone_or_ZoneList_Name.lower() not in use_list:
                 objects_to_delete.append(item)
 
     for item in objects_to_delete:
